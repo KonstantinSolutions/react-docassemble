@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { withRouter } from "react-router-dom";
+import { InterviewContext } from "../context";
 
 function StartInterview({ filename, title, history }) {
+  const { setSession } = useContext(InterviewContext);
   function startInterview() {
-    fetch(`/api/session/new?i=${filename}`, {
-      headers: {
-        "x-api-key": "VAMQXTCK06465LP8B6C31TIOFZB8ZNRI"
-      }
-    }).then(() => {
-      history.push("/interview/page1");
-    });
+    fetch(`/docassemble/api/session/new?i=${filename}`)
+      .then(res => res.json())
+      .then(data => {
+        setSession(data.session);
+        history.push("/session/question");
+      });
   }
   return <button onClick={startInterview}>{title}</button>;
 }
