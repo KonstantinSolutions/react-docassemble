@@ -1,10 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import { InterviewContext } from "../context";
 import Exit from "./Exit";
+import Field from "./Field";
 
 export default function CurrentQuestion(props) {
   const { session, i } = useContext(InterviewContext);
   const [question, setQuestion] = useState();
+  const [variables, setVariables] = useState({});
 
   function fetchQuestion() {
     fetch(`/docassemble/api/session/question?i=${i}&session=${session}`)
@@ -21,14 +23,33 @@ export default function CurrentQuestion(props) {
   if (!question) {
     return null;
   }
+  function setField(variable) {
+    setVariables({
+      ...variables,
+      ...variable
+    });
+  }
   const { questionText, fields, exit_label, exit_link } = question;
-  console.log(question);
+  console.log(variables, question);
   return (
     <div>
       <h1>{questionText}</h1>
-      {exit_label ? (
-        <Exit exit_label={exit_label} exit_link={exit_link} />
+      {fields ? (
+        <div>
+          {fields.map(field => (
+            <Field
+              key={field.variable_name}
+              {...field}
+              value={variables[field.variable_name]}
+              setField={setField}
+            />
+          ))}
+        </div>
       ) : null}
+
+      {/* {exit_label ? (
+        <Exit exit_label={exit_label} exit_link={exit_link} />
+      ) : null} */}
     </div>
   );
 }
