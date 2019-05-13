@@ -20,6 +20,11 @@ export default function CurrentQuestion(props) {
   if (!question) {
     return null;
   }
+  const { questionText, fields } = question;
   console.log(question);
-  return <div>Interview page {session}</div>;
+  return (
+    <div>
+      <h1>{questionText}</h1>
+    </div>
+  );
 }
