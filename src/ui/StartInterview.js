@@ -3,12 +3,13 @@ import { withRouter } from "react-router-dom";
 import { InterviewContext } from "../context";
 
 function StartInterview({ filename, title, history }) {
-  const { setSession } = useContext(InterviewContext);
+  const { setSession, setFilename } = useContext(InterviewContext);
   function startInterview() {
     fetch(`/docassemble/api/session/new?i=${filename}`)
       .then(res => res.json())
       .then(data => {
         setSession(data.session);
+        setFilename(filename);
         history.push("/session/question");
       });
   }
