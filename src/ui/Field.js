@@ -13,7 +13,7 @@ export default function Field({
       <label>{label}</label>
       <input
         className="form-control"
-        value={value}
+        value={value || ""}
         type={datatype}
         onChange={e => setField({ [variable_name]: e.target.value })}
       />
