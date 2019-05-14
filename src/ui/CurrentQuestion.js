@@ -16,6 +16,24 @@ export default function CurrentQuestion(props) {
       });
   }
 
+  function saveVariables() {
+    fetch(`/docassemble/api/session`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        i,
+        session,
+        variables
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        setQuestion(data);
+      });
+  }
+
   useEffect(() => {
     fetchQuestion();
   }, []);
@@ -46,6 +64,7 @@ export default function CurrentQuestion(props) {
           ))}
         </div>
       ) : null}
+      <button onClick={saveVariables}>Continue</button>
 
       {/* {exit_label ? (
         <Exit exit_label={exit_label} exit_link={exit_link} />
