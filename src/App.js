@@ -8,7 +8,6 @@ function App() {
   return (
     <InterviewProvider>
       <div className="App">
-        <h1>React docassemble</h1>
         <Router>
           <Route exact path="/" component={Home} />
           <Route path="/session/question" component={CurrentQuestion} />

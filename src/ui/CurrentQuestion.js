@@ -47,7 +47,13 @@ export default function CurrentQuestion(props) {
       ...variable
     });
   }
-  const { questionText, fields, exit_label, exit_link } = question;
+  const {
+    questionText,
+    questionType,
+    fields,
+    exit_label,
+    exit_link
+  } = question;
   console.log(variables, question);
   return (
     <div>
@@ -64,7 +70,9 @@ export default function CurrentQuestion(props) {
           ))}
         </div>
       ) : null}
-      <button onClick={saveVariables}>Continue</button>
+      {questionType !== "deadend" ? (
+        <button onClick={saveVariables}>Continue</button>
+      ) : null}
 
       {/* {exit_label ? (
         <Exit exit_label={exit_label} exit_link={exit_link} />
