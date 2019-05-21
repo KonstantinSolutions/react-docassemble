@@ -30,6 +30,7 @@ export default function CurrentQuestion(props) {
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         setQuestion(data);
       });
   }
