@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
-import { withRouter } from "react-router-dom";
 import { InterviewContext } from "../context";
 
-function StartInterview({ filename, title, history }) {
+export function StartInterview({ filename, title, onStart }) {
   const { setSession, setFilename } = useContext(InterviewContext);
   function startInterview() {
     fetch(`/docassemble/api/session/new?i=${filename}`)
@@ -10,10 +9,8 @@ function StartInterview({ filename, title, history }) {
       .then(data => {
         setSession(data.session);
         setFilename(filename);
-        history.push("/session/question");
+        onStart();
       });
   }
   return <button onClick={startInterview}>{title}</button>;
 }
-
-export default withRouter(StartInterview);

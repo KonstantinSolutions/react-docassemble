@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { InterviewContext } from "../context";
+import { InterviewContext } from "react-docassemble";
 import Exit from "./Exit";
 import Field from "./Field";
 
