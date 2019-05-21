@@ -5,6 +5,7 @@
   "dependencies": {
     "qs": "^6.7.0",
     "react": "^16.8.6",
+    "react-docassemble": "https://github.com/KonstantinSolutions/react-docassemble",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
