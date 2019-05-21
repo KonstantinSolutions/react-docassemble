@@ -17,6 +17,7 @@
     "react-dom": "^16.8.6"
   },
   "scripts": {
+    "postinstall": "npm run build",
     "build": "babel ./src --out-dir ./lib",
     "build-watch": "babel ./src --watch --out-dir ./lib"
   },
