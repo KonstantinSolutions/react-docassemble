@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { InterviewContext } from "react-docassemble";
-import Exit from "./Exit";
+import { InterviewContext } from "../context";
 import Field from "./Field";
 
 export default function CurrentQuestion(props) {
@@ -48,13 +47,7 @@ export default function CurrentQuestion(props) {
       ...variable
     });
   }
-  const {
-    questionText,
-    questionType,
-    fields,
-    exit_label,
-    exit_link
-  } = question;
+  const { questionText, questionType, fields } = question;
   console.log(variables, question);
   return (
     <div>
@@ -74,10 +67,6 @@ export default function CurrentQuestion(props) {
       {questionType !== "deadend" ? (
         <button onClick={saveVariables}>Continue</button>
       ) : null}
-
-      {/* {exit_label ? (
-        <Exit exit_label={exit_label} exit_link={exit_link} />
-      ) : null} */}
     </div>
   );
 }
