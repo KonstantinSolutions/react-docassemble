@@ -1,7 +1,6 @@
 {
   "name": "react-docassemble",
   "version": "0.1.0",
-  "private": true,
   "main": "./lib",
   "dependencies": {
     "@babel/cli": "^7.4.4",
