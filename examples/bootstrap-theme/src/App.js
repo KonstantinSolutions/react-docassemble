@@ -1,7 +1,8 @@
-import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from "./Home";
-import { InterviewProvider, CurrentQuestion } from "react-docassemble";
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Home from './Home';
+import { InterviewProvider } from 'react-docassemble';
+import CurrentQuestion from './CurrentQuestion';
 
 function App() {
   return (
