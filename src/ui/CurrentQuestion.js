@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { InterviewContext } from "../context";
 import Field from "./Field";
+import { Button } from "reactstrap"
 
 export default function CurrentQuestion(props) {
   const { session, i } = useContext(InterviewContext);
@@ -65,7 +66,7 @@ export default function CurrentQuestion(props) {
         </div>
       ) : null}
       {questionType !== "deadend" ? (
-        <button onClick={saveVariables}>Continue</button>
+        <Button onClick={saveVariables}>Continue</Button>
       ) : null}
     </div>
   );

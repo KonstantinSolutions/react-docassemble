@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { InterviewContext } from '../context';
 
-export function StartInterview({ filename, onStart, children }) {
+export default function useInterview({ filename, onStart }) {
   const { setSession, setFilename } = useContext(InterviewContext);
   function startInterview() {
     fetch(`/docassemble/api/session/new?i=${filename}`)
@@ -13,5 +13,5 @@ export function StartInterview({ filename, onStart, children }) {
         onStart();
       });
   }
-  return React.cloneElement(children, { onClick: startInterview })
+  return [startInterview];
 }
