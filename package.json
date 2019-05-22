@@ -28,5 +28,23 @@
   "devDependencies": {
     "eslint": "^5.16.0",
     "eslint-config-react-app": "^4.0.1"
-  }
+  },
+  "description": "A port of DocAssemble to work with React apps via DocAssemble's API.",
+  "directories": {
+    "example": "examples"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/konstantinbrazhnik/react-docassemble.git"
+  },
+  "keywords": [
+    "docassemble",
+    "react"
+  ],
+  "author": "Juris, PBC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/konstantinbrazhnik/react-docassemble/issues"
+  },
+  "homepage": "https://github.com/konstantinbrazhnik/react-docassemble#readme"
 }
