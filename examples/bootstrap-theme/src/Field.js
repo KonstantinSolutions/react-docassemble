@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormGroup, Input, Label } from 'reactstrap';
+import {FormGroup, Input, Label} from 'reactstrap';
 
 export default function Field({
   datatype,
@@ -16,7 +16,7 @@ export default function Field({
         type="datatype"
         name={variable_name}
         value={value || ''}
-        onChange={e => setField({ [variable_name]: e.target.value })}
+        onChange={e => setField({[variable_name]: e.target.value})}
       />
     </FormGroup>
   );

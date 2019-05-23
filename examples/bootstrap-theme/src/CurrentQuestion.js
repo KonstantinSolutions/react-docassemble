@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Field from './Field';
-import { Button } from 'reactstrap';
-import { useQuestion } from 'react-docassemble';
+import {Button} from 'reactstrap';
+import {useQuestion} from 'react-docassemble';
 
 export default function CurrentQuestion(props) {
   const [question, saveVariables] = useQuestion();
@@ -16,7 +16,7 @@ export default function CurrentQuestion(props) {
       ...variable
     });
   }
-  const { questionText, questionType, fields } = question;
+  const {questionText, questionType, fields} = question;
   console.log(variables, question);
   return (
     <div>

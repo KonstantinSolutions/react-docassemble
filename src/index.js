@@ -1,4 +1,5 @@
-export { InterviewProvider, InterviewContext } from './context';
+export {InterviewProvider, InterviewContext} from './context';
 
 export useInterview from './hooks/useInterview';
-export useQuestion from './hooks/useQuestion';
+export useCurrentQuestion from './hooks/useCurrentQuestion';
+export useBack from './hooks/useBack';

@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
-import { InterviewContext } from '../context';
+import React, {useContext} from 'react';
+import {InterviewContext} from '../context';
 
-export default function useInterview({ filename, onStart }) {
-  const { setSession, setFilename } = useContext(InterviewContext);
+export default function useInterview({filename, onStart}) {
+  const {setSession, setFilename} = useContext(InterviewContext);
   function startInterview() {
     fetch(`/docassemble/api/session/new?i=${filename}`)
       .then(res => res.json())

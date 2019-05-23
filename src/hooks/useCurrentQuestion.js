@@ -1,9 +1,8 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { InterviewContext } from '../context';
+import React, {useContext, useState, useEffect} from 'react';
+import {InterviewContext} from '../context';
 
 export default function useQuestion() {
-  const { session, i } = useContext(InterviewContext);
-  const [question, setQuestion] = useState();
+  const {session, i, question, setQuestion} = useContext(InterviewContext);
 
   function fetchQuestion() {
     fetch(`/docassemble/api/session/question?i=${i}&session=${session}`)
@@ -14,6 +13,14 @@ export default function useQuestion() {
   }
 
   function saveVariables(variables) {
+    console.log(
+      JSON.stringify({
+        i,
+        session,
+        variables
+      }),
+      'variables'
+    );
     fetch(`/docassemble/api/session`, {
       method: 'POST',
       headers: {
@@ -27,8 +34,11 @@ export default function useQuestion() {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
+        console.log(data, 'res of save variables');
         setQuestion(data);
+      })
+      .catch(e => {
+        console.log(e.message, 'error in saveVariables');
       });
   }
 
