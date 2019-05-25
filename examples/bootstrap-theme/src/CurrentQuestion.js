@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import Field from './Field';
 import {Button} from 'reactstrap';
-import {useQuestion} from 'react-docassemble';
+import {useCurrentQuestion} from 'react-docassemble';
 
 export default function CurrentQuestion(props) {
-  const [question, saveVariables] = useQuestion();
+  const [question, saveVariables] = useCurrentQuestion();
   const [variables, setVariables] = useState({});
 
   if (!question) {
