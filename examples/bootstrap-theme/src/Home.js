@@ -9,14 +9,7 @@ function StartInterview({filename, title, onStart}) {
 export default function Interview({history}) {
   return (
     <StartInterview
-      filename="docassemble.playground1:test.yml"
-      title="Start Interview"
-      onStart={() => history.push('/session/question')}
-    />
-  );
-  return (
-    <StartInterview
-      filename="docassemble.playground1:interview1.yml"
+      filename="docassemble.playground1:test1.yml"
       title="Start Interview"
       onStart={() => history.push('/session/question')}
     />

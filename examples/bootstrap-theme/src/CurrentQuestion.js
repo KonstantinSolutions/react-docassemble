@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import Field from './Field';
 import {Button} from 'reactstrap';
-import {useCurrentQuestion} from 'react-docassemble';
+import {useCurrentQuestion, useBack} from 'react-docassemble';
 
 export default function CurrentQuestion(props) {
   const [question, saveVariables] = useCurrentQuestion();
   const [variables, setVariables] = useState({});
+  const [goBack] = useBack();
 
   if (!question) {
     return null;
@@ -16,7 +17,7 @@ export default function CurrentQuestion(props) {
       ...variable
     });
   }
-  const {questionText, questionType, fields} = question;
+  const {questionText, questionType, fields, allow_going_back} = question;
   console.log(variables, question);
   return (
     <div>
@@ -33,6 +34,7 @@ export default function CurrentQuestion(props) {
           ))}
         </div>
       ) : null}
+      {allow_going_back ? <Button onClick={goBack}>Back</Button> : null}
       {questionType !== 'deadend' ? (
         <Button onClick={() => saveVariables(variables)}>Continue</Button>
       ) : null}
