@@ -26,9 +26,10 @@ export default function Field({
       </Label>
       {choices ? (
         <Input
+          name={variable_name}
           type="select"
           value={value}
-          onChange={e => setField({[variable_name]: e.target.value})}
+          onChange={setField}
         >
           <option value={null}>Select...</option>
           {choices.map(choice => (
@@ -42,7 +43,7 @@ export default function Field({
           type={datatype}
           name={variable_name}
           value={value || ''}
-          onChange={e => setField({[variable_name]: e.target.value})}
+          onChange={setField}
         />
       )}
       <Error message={error} />

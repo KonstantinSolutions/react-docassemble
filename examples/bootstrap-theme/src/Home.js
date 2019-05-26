@@ -1,15 +1,15 @@
-import React from 'react';
-import {useInterview} from 'react-docassemble';
+import React, {useContext} from 'react';
+import {InterviewContext} from 'react-docassemble';
 
-function StartInterview({filename, title, onStart}) {
-  const [startInterview] = useInterview({filename, onStart});
-  return <button onClick={startInterview}>{title}</button>;
+function StartInterview({i, title, onStart}) {
+  const {startInterview} = useContext(InterviewContext);
+  return <button onClick={() => startInterview({i, onStart})}>{title}</button>;
 }
 
 export default function Interview({history}) {
   return (
     <StartInterview
-      filename="docassemble.playground1:test1.yml"
+      i="docassemble.playground1:test1.yml"
       title="Start Interview"
       onStart={() => history.push('/session/question')}
     />
