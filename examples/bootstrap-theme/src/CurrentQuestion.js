@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import Field from './Field';
-import {Button} from 'reactstrap';
+import {Button, Container} from 'reactstrap';
 import {useCurrentQuestion, useBack} from 'react-docassemble';
 
 export default function CurrentQuestion(props) {
   const [question, saveVariables] = useCurrentQuestion();
   const [variables, setVariables] = useState({});
+  const [errors, setErrors] = useState({});
   const [goBack] = useBack();
 
   if (!question) {
@@ -17,10 +18,16 @@ export default function CurrentQuestion(props) {
       ...variable
     });
   }
+
+  function submit() {
+    const errorObj = saveVariables(variables);
+    if (errorObj) {
+      setErrors(errorObj);
+    }
+  }
   const {questionText, questionType, fields, allow_going_back} = question;
-  console.log(variables, question);
   return (
-    <div>
+    <Container>
       <h1>{questionText}</h1>
       {fields ? (
         <div>
@@ -29,6 +36,7 @@ export default function CurrentQuestion(props) {
               key={field.variable_name}
               {...field}
               value={variables[field.variable_name]}
+              error={errors[field.variable_name]}
               setField={setField}
             />
           ))}
@@ -36,8 +44,8 @@ export default function CurrentQuestion(props) {
       ) : null}
       {allow_going_back ? <Button onClick={goBack}>Back</Button> : null}
       {questionType !== 'deadend' ? (
-        <Button onClick={() => saveVariables(variables)}>Continue</Button>
+        <Button onClick={submit}>Continue</Button>
       ) : null}
-    </div>
+    </Container>
   );
 }

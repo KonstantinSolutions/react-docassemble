@@ -1,7 +1,16 @@
 import React from 'react';
 import {FormGroup, Input, Label} from 'reactstrap';
 
+function Required() {
+  return <span style={{color: 'red', marginLeft: 5}}>*</span>;
+}
+
+function Error({message}) {
+  return <div style={{color: 'red'}}>{message}</div>;
+}
+
 export default function Field({
+  error,
   datatype,
   variable_name,
   label,
@@ -12,7 +21,9 @@ export default function Field({
 }) {
   return (
     <FormGroup>
-      <Label for={variable_name}>{label}</Label>
+      <Label for={variable_name}>
+        {label} {required ? <Required /> : null}
+      </Label>
       {choices ? (
         <Input
           type="select"
@@ -34,6 +45,7 @@ export default function Field({
           onChange={e => setField({[variable_name]: e.target.value})}
         />
       )}
+      <Error message={error} />
     </FormGroup>
   );
 }
