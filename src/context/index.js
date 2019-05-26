@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import useLocalStorage from 'react-use-localstorage';
 import {get, post} from '../api';
 import {validate} from '../helpers';
@@ -63,6 +63,12 @@ export function InterviewProvider(props) {
       setQuestion(data);
     });
   }
+
+  useEffect(() => {
+    if (session && i) {
+      fetchQuestion();
+    }
+  }, []);
 
   const contextValue = {
     session,
