@@ -1,5 +1,7 @@
 export function get(url) {
-  return fetch(url).then(res => res.json());
+  return fetch(url).then(res => {
+    return res.json();
+  });
 }
 
 export function post(url, data) {
@@ -9,5 +11,7 @@ export function post(url, data) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
-  }).then(res => res.json());
+  }).then(res => {
+    return res.json();
+  });
 }

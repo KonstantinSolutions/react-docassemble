@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import useLocalStorage from 'react-use-localstorage';
 import {get, post} from '../api';
 import {validate} from '../helpers';
@@ -12,9 +12,12 @@ export function InterviewProvider(props) {
   const [variables, setVariables] = useState({});
   const [errors, setErrors] = useState({});
 
-  function reset() {
-    setSession(null);
-    setFilename(null);
+  function resetInterview() {
+    setSession(undefined);
+    setFilename(undefined);
+    setQuestion(undefined);
+    setErrors({});
+    setVariables({});
   }
   function setVariable(name, value) {
     setVariables({
@@ -25,6 +28,7 @@ export function InterviewProvider(props) {
 
   function isValid() {
     const errors = validate(question, variables);
+
     setErrors(errors);
     if (Object.keys(errors).length > 0) {
       return false;
@@ -41,7 +45,7 @@ export function InterviewProvider(props) {
   }
 
   function startInterview({i, onStart}) {
-    reset();
+    resetInterview();
     return get(`/docassemble/api/session/new?i=${i}`).then(data => {
       setSession(data.session);
       setFilename(i);
@@ -86,6 +90,7 @@ export function InterviewProvider(props) {
     setVariable,
     setErrors,
     startInterview,
+    resetInterview,
     goBack,
     saveVariables
   };
