@@ -11,6 +11,11 @@ export function InterviewProvider(props) {
   const [question, setQuestion] = useState();
   const [variables, setVariables] = useState({});
   const [errors, setErrors] = useState({});
+
+  function reset() {
+    setSession(null);
+    setFilename(null);
+  }
   function setVariable(name, value) {
     setVariables({
       ...variables,
@@ -36,12 +41,11 @@ export function InterviewProvider(props) {
   }
 
   function startInterview({i, onStart}) {
+    reset();
     return get(`/docassemble/api/session/new?i=${i}`).then(data => {
       setSession(data.session);
       setFilename(i);
-      fetchQuestion().then(() => {
-        onStart && onStart();
-      });
+      onStart && onStart();
     });
   }
 
@@ -68,7 +72,7 @@ export function InterviewProvider(props) {
     if (session && i) {
       fetchQuestion();
     }
-  }, []);
+  }, [session, i]);
 
   const contextValue = {
     session,
