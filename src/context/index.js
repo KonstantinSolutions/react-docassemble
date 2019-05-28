@@ -6,8 +6,8 @@ import {validate} from '../helpers';
 export const InterviewContext = React.createContext({});
 
 export function InterviewProvider(props) {
-  const [session, setSession] = useLocalStorage('session', null);
-  const [i, setFilename] = useLocalStorage('filename', null);
+  const [session, setSession] = useState('session', null);
+  const [i, setFilename] = useState('filename', null);
   const [question, setQuestion] = useState();
   const [variables, setVariables] = useState({});
   const [errors, setErrors] = useState({});
