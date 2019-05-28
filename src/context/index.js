@@ -19,6 +19,7 @@ export function InterviewProvider(props) {
     setErrors({});
     setVariables({});
   }
+
   function setVariable(name, value) {
     setVariables({
       ...variables,
@@ -74,7 +75,9 @@ export function InterviewProvider(props) {
 
   useEffect(() => {
     if (session && i) {
-      fetchQuestion();
+      try {
+        fetchQuestion();
+      } catch (e) {}
     }
   }, [session, i]);
 
