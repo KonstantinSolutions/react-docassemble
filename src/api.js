@@ -1,7 +1,16 @@
+function handleErrors(res) {
+  if (!res.ok) {
+    throw Error(res.statusText);
+  }
+  return res;
+}
+
 export function get(url) {
-  return fetch(url).then(res => {
-    return res.json();
-  });
+  return fetch(url)
+    .then(handleErrors)
+    .then(res => {
+      return res.json();
+    });
 }
 
 export function post(url, data) {
@@ -11,7 +20,9 @@ export function post(url, data) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
-  }).then(res => {
-    return res.json();
-  });
+  })
+    .then(handleErrors)
+    .then(res => {
+      return res.json();
+    });
 }
