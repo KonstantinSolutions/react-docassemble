@@ -1,8 +1,10 @@
-import {isEmail} from 'validator';
+import {isEmail, isMobilePhone} from 'validator';
 
 const defaultValidators = {
   required: value => (!value ? 'You need to fill this in.' : null),
-  email: value => (!isEmail(value || '') ? 'Not a valid email' : null)
+  email: value => (!isEmail(value || '') ? 'Not a valid email' : null),
+  tel: value =>
+    !isMobilePhone(value || '') ? 'Not a valid phone number' : null
 };
 
 function getValidators(field) {
@@ -12,6 +14,9 @@ function getValidators(field) {
   }
   if (field.datatype === 'email') {
     validators = validators.concat(defaultValidators.email);
+  }
+  if (field.datatype === 'tel') {
+    validators = validators.concat(defaultValidators.tel);
   }
   return validators;
 }
