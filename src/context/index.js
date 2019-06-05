@@ -48,9 +48,14 @@ export function InterviewProvider(props) {
   function startInterview({i, onStart}) {
     resetInterview();
     return get(`/docassemble/api/session/new?i=${i}`).then(data => {
-      setSession(data.session);
-      setFilename(i);
-      onStart && onStart();
+      const session = data && data.session;
+      if (session) {
+        setSession(session);
+        setFilename(i);
+        onStart && onStart();
+      } else {
+        throw new Error('Interview session is null');
+      }
     });
   }
 
