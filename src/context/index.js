@@ -11,6 +11,7 @@ export function InterviewProvider(props) {
   const [question, setQuestion] = useState();
   const [variables, setVariables] = useState({});
   const [errors, setErrors] = useState({});
+  const [globalError, setGlobalError] = useState(null);
 
   function resetInterview() {
     setSession(undefined);
@@ -80,9 +81,7 @@ export function InterviewProvider(props) {
 
   useEffect(() => {
     if (session && i) {
-      try {
-        fetchQuestion();
-      } catch (e) {}
+      fetchQuestion().catch(e => setGlobalError('Fetching question failed'));
     }
   }, [session, i]);
 
@@ -92,6 +91,7 @@ export function InterviewProvider(props) {
     question,
     variables,
     errors,
+    globalError,
     setSession,
     setFilename,
     setQuestion,
