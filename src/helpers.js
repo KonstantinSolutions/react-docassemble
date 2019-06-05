@@ -28,7 +28,6 @@ export function validate(question, variables) {
     const fieldErrors = validators
       .map(validator => validator(value))
       .filter(error => Boolean(error));
-    console.log(field, fieldErrors);
     if (fieldErrors.length > 0) {
       acc[field.variable_name] = fieldErrors[0];
     }
