@@ -49,7 +49,7 @@ export function InterviewProvider(props) {
 
   function startInterview({ i, extraQueryParams, onStart }) {
     resetInterview();
-    const queryString = gs.stringify({ i, ...extraQueryParams });
+    const queryString = qs.stringify({ i, ...extraQueryParams });
     return get(`/docassemble/api/session/new?${queryString}`).then(data => {
       const session = data && data.session;
       if (session) {
