@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useRef} from 'react';
-import useLocalStorage from 'react-use-localstorage';
-import {get, post} from '../api';
-import {validate} from '../helpers';
+import React, { useState, useEffect, useRef } from "react";
+import qs from "qs";
+import useLocalStorage from "react-use-localstorage";
+import { get, post } from "../api";
+import { validate } from "../helpers";
 
 export const InterviewContext = React.createContext({});
 
@@ -46,22 +47,23 @@ export function InterviewProvider(props) {
     });
   }
 
-  function startInterview({i, onStart}) {
+  function startInterview({ i, extraQueryParams, onStart }) {
     resetInterview();
-    return get(`/docassemble/api/session/new?i=${i}`).then(data => {
+    const queryString = gs.stringify({ i, ...extraQueryParams });
+    return get(`/docassemble/api/session/new?${queryString}`).then(data => {
       const session = data && data.session;
       if (session) {
         setSession(session);
         setFilename(i);
         onStart && onStart();
       } else {
-        throw new Error('Interview session is null');
+        throw new Error("Interview session is null");
       }
     });
   }
 
   function goBack() {
-    return post(`/docassemble/api/session/back`, {i, session}).then(data => {
+    return post(`/docassemble/api/session/back`, { i, session }).then(data => {
       setQuestion(data);
     });
   }
@@ -81,7 +83,7 @@ export function InterviewProvider(props) {
 
   useEffect(() => {
     if (session && i) {
-      fetchQuestion().catch(e => setGlobalError('Fetching question failed'));
+      fetchQuestion().catch(e => setGlobalError("Fetching question failed"));
     }
   }, [session, i]);
 
