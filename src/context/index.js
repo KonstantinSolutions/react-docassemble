@@ -40,11 +40,11 @@ export function InterviewProvider(props) {
   }
 
   function fetchQuestion() {
-    return get(
-      `/docassemble/api/session/question?i=${i}&session=${session}`
-    ).then(data => {
-      setQuestion(data);
-    });
+    return get(`/docassemble/api/session/question?&session=${session}`).then(
+      data => {
+        setQuestion(data);
+      }
+    );
   }
 
   function startInterview({ i, extraQueryParams, onStart }) {
@@ -63,7 +63,7 @@ export function InterviewProvider(props) {
   }
 
   function goBack() {
-    return post(`/docassemble/api/session/back`, { i, session }).then(data => {
+    return post(`/docassemble/api/session/back`, { session }).then(data => {
       setQuestion(data);
     });
   }
@@ -73,7 +73,6 @@ export function InterviewProvider(props) {
       return;
     }
     return post(`/docassemble/api/session`, {
-      i,
       session,
       variables
     }).then(data => {
