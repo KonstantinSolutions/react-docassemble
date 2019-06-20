@@ -59,6 +59,13 @@ export function InterviewProvider(props) {
     });
   }
 
+  function continueInterview({ session }) {
+    resetInterview();
+    if (session) {
+      setSession(session);
+    }
+  }
+
   function goBack() {
     return post(`/docassemble/api/session/back`, { session }).then(data => {
       setQuestion(data);
@@ -94,6 +101,7 @@ export function InterviewProvider(props) {
     setVariable,
     setErrors,
     startInterview,
+    continueInterview,
     resetInterview,
     goBack,
     saveVariables
