@@ -8,7 +8,6 @@ export const InterviewContext = React.createContext({});
 
 export function InterviewProvider(props) {
   const [session, setSession] = useState(null);
-  const [i, setFilename] = useState(null);
   const [question, setQuestion] = useState();
   const [variables, setVariables] = useState({});
   const [errors, setErrors] = useState({});
@@ -16,7 +15,6 @@ export function InterviewProvider(props) {
 
   function resetInterview() {
     setSession(undefined);
-    setFilename(undefined);
     setQuestion(undefined);
     setErrors({});
     setVariables({});
@@ -54,7 +52,6 @@ export function InterviewProvider(props) {
       const session = data && data.session;
       if (session) {
         setSession(session);
-        setFilename(i);
         onStart && onStart();
       } else {
         throw new Error("Interview session is null");
@@ -81,20 +78,18 @@ export function InterviewProvider(props) {
   }
 
   useEffect(() => {
-    if (session && i) {
+    if (session) {
       fetchQuestion().catch(e => setGlobalError("Fetching question failed"));
     }
-  }, [session, i]);
+  }, [session]);
 
   const contextValue = {
     session,
-    i,
     question,
     variables,
     errors,
     globalError,
     setSession,
-    setFilename,
     setQuestion,
     setVariable,
     setErrors,
