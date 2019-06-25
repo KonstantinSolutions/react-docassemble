@@ -99,6 +99,7 @@ export function InterviewProvider(props) {
     setSession,
     setQuestion,
     setVariable,
+    setVariables,
     setErrors,
     startInterview,
     continueInterview,
