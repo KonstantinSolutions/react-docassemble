@@ -45,7 +45,7 @@ export function InterviewProvider(props) {
     );
   }
 
-  function fetchVariables() {
+  function fetchVariables({ session }) {
     return get(`/docassemble/api/session?&session=${session}`).then(data => {
       setVariables(data);
     });
@@ -67,9 +67,11 @@ export function InterviewProvider(props) {
 
   function continueInterview({ session }) {
     resetInterview();
-    if (session) {
-      setSession(session);
+    if (!session) {
+      throw new Error("Need session id to continue interview");
     }
+    setSession(session);
+    return fetchVariables({ session });
   }
 
   function goBack() {
