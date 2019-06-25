@@ -45,6 +45,12 @@ export function InterviewProvider(props) {
     );
   }
 
+  function fetchVariables() {
+    return get(`/docassemble/api/session?&session=${session}`).then(data => {
+      setVariables(data);
+    });
+  }
+
   function startInterview({ i, extraQueryParams, onStart }) {
     resetInterview();
     const queryString = qs.stringify({ i, ...extraQueryParams });
@@ -100,6 +106,7 @@ export function InterviewProvider(props) {
     setQuestion,
     setVariable,
     setVariables,
+    fetchVariables,
     setErrors,
     startInterview,
     continueInterview,
