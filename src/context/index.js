@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import qs from "qs";
 import useLocalStorage from "react-use-localstorage";
 import { get, post } from "../api";
-import { validate } from "../helpers";
+import { validate, filterVariablesByQuestion } from "../helpers";
 
 export const InterviewContext = React.createContext({});
 
@@ -86,7 +86,7 @@ export function InterviewProvider(props) {
     }
     return post(`/docassemble/api/session`, {
       session,
-      variables
+      variables: filterVariablesByQuestion(question, variables)
     }).then(data => {
       setQuestion(data);
     });
