@@ -77,7 +77,8 @@ export function InterviewProvider(props) {
 
   function goBack() {
     return post(`/docassemble/api/session/back`, { session }).then(data => {
-      setQuestion(data);
+      // setQuestion(data);
+      fetchQuestion();
     });
   }
 
