@@ -87,8 +87,8 @@ export function InterviewProvider(props) {
     return post(`/docassemble/api/session`, {
       session,
       variables: filterVariablesByQuestion(question, variables)
-    }).then(async data => {
-      await fetchQuestion();
+    }).then(data => {
+      return fetchQuestion();
     });
   }
 
