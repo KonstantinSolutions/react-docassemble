@@ -88,7 +88,7 @@ export function InterviewProvider(props) {
       session,
       variables: filterVariablesByQuestion(question, variables)
     }).then(data => {
-      return fetchQuestion();
+      fetchQuestion();
     });
   }
 
