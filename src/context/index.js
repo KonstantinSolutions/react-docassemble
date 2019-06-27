@@ -40,7 +40,6 @@ export function InterviewProvider(props) {
   function fetchQuestion() {
     return get(`/docassemble/api/session/question?&session=${session}`).then(
       data => {
-        console.log("question data", data);
         setQuestion(data);
       }
     );
@@ -77,8 +76,7 @@ export function InterviewProvider(props) {
 
   function goBack() {
     return post(`/docassemble/api/session/back`, { session }).then(data => {
-      // setQuestion(data);
-      fetchQuestion();
+      setQuestion(data);
     });
   }
 
@@ -90,8 +88,7 @@ export function InterviewProvider(props) {
       session,
       variables: filterVariablesByQuestion(question, variables)
     }).then(data => {
-      console.log("save variables response", data);
-      fetchQuestion();
+      setQuestion(data);
     });
   }
 
