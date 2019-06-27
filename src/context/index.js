@@ -12,6 +12,7 @@ export function InterviewProvider(props) {
   const [variables, setVariables] = useState({});
   const [errors, setErrors] = useState({});
   const [globalError, setGlobalError] = useState(null);
+  const [loadingQuestion, setLoadingQuestion] = useState(false);
 
   function resetInterview() {
     setSession(undefined);
@@ -38,8 +39,10 @@ export function InterviewProvider(props) {
   }
 
   function fetchQuestion() {
+    setLoadingQuestion(true);
     return get(`/docassemble/api/session/question?&session=${session}`).then(
       data => {
+        setLoadingQuestion(false);
         setQuestion(data);
       }
     );
@@ -84,10 +87,12 @@ export function InterviewProvider(props) {
     if (!isValid()) {
       return;
     }
+    setLoadingQuestion(true);
     return post(`/docassemble/api/session`, {
       session,
       variables: filterVariablesByQuestion(question, variables)
     }).then(data => {
+      setLoadingQuestion(false);
       setQuestion(data);
     });
   }
@@ -114,7 +119,8 @@ export function InterviewProvider(props) {
     continueInterview,
     resetInterview,
     goBack,
-    saveVariables
+    saveVariables,
+    loadingQuestion
   };
 
   return (
