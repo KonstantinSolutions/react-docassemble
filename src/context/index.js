@@ -13,7 +13,7 @@ export function InterviewProvider(props) {
   const [errors, setErrors] = useState({});
   const [globalError, setGlobalError] = useState(null);
   const [loadingQuestion, setLoadingQuestion] = useState(false);
-  const host = props.config && props.config.host;
+  const host = (props.config && props.config.host) || "";
 
   function resetInterview() {
     setSession(undefined);
