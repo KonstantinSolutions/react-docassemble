@@ -13,6 +13,7 @@ export function InterviewProvider(props) {
   const [errors, setErrors] = useState({});
   const [globalError, setGlobalError] = useState(null);
   const [loadingQuestion, setLoadingQuestion] = useState(false);
+  const host = props.config && props.config.host;
 
   function resetInterview() {
     setSession(undefined);
@@ -40,7 +41,7 @@ export function InterviewProvider(props) {
 
   function fetchQuestion() {
     setLoadingQuestion(true);
-    return get(`/docassemble/api/session/question?&session=${session}`).then(
+    return get(`${host}/api/session/question?&session=${session}`).then(
       data => {
         setLoadingQuestion(false);
         setQuestion(data);
@@ -49,7 +50,7 @@ export function InterviewProvider(props) {
   }
 
   function fetchVariables({ session }) {
-    return get(`/docassemble/api/session?&session=${session}`).then(data => {
+    return get(`${host}/api/session?&session=${session}`).then(data => {
       setVariables(data);
     });
   }
@@ -57,7 +58,7 @@ export function InterviewProvider(props) {
   function startInterview({ i, extraQueryParams, onStart }) {
     resetInterview();
     const queryString = qs.stringify({ i, ...extraQueryParams });
-    return get(`/docassemble/api/session/new?${queryString}`).then(data => {
+    return get(`${host}/api/session/new?${queryString}`).then(data => {
       const session = data && data.session;
       if (session) {
         setSession(session);
@@ -78,7 +79,7 @@ export function InterviewProvider(props) {
   }
 
   function goBack() {
-    return post(`/docassemble/api/session/back`, { session }).then(data => {
+    return post(`${host}/api/session/back`, { session }).then(data => {
       setQuestion(data);
     });
   }
@@ -88,7 +89,7 @@ export function InterviewProvider(props) {
       return;
     }
     setLoadingQuestion(true);
-    return post(`/docassemble/api/session`, {
+    return post(`${host}/api/session`, {
       session,
       variables: filterVariablesByQuestion(question, variables)
     }).then(data => {
@@ -120,7 +121,8 @@ export function InterviewProvider(props) {
     resetInterview,
     goBack,
     saveVariables,
-    loadingQuestion
+    loadingQuestion,
+    config: props.config
   };
 
   return (
