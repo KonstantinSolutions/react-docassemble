@@ -41,12 +41,13 @@ export function InterviewProvider(props) {
 
   function fetchQuestion() {
     setLoadingQuestion(true);
-    return get(`${host}/api/session/question?&session=${session}`).then(
-      data => {
-        setLoadingQuestion(false);
+    return get(`${host}/api/session/question?&session=${session}`)
+      .then(data => {
         setQuestion(data);
-      }
-    );
+      })
+      .finally(() => {
+        setLoadingQuestion(false);
+      });
   }
 
   function fetchVariables({ session }) {
