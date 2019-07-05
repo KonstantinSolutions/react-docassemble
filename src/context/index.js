@@ -93,10 +93,13 @@ export function InterviewProvider(props) {
     return post(`${host}/api/session`, {
       session,
       variables: filterVariablesByQuestion(question, variables)
-    }).then(data => {
-      setLoadingQuestion(false);
-      setQuestion(data);
-    });
+    })
+      .then(data => {
+        setQuestion(data);
+      })
+      .finally(() => {
+        setLoadingQuestion(false);
+      });
   }
 
   useEffect(() => {
