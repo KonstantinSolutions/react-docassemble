@@ -2,9 +2,9 @@ import { isEmail, isMobilePhone } from "validator";
 
 const defaultValidators = {
   required: value => (!value ? "You need to fill this in." : null),
-  email: value => (!isEmail(value || "") ? "Not a valid email" : null),
+  email: value => value && !isEmail(value) ? "Not a valid email" : null),
   tel: value =>
-    !isMobilePhone(value || "") ? "Not a valid phone number" : null
+    value && !isMobilePhone(value) ? "Not a valid phone number" : null
 };
 
 function getValidators(field) {
