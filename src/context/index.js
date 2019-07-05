@@ -98,6 +98,7 @@ export function InterviewProvider(props) {
         setQuestion(data);
       })
       .finally(() => {
+        console.log("entered finally!!");
         setLoadingQuestion(false);
       });
   }
