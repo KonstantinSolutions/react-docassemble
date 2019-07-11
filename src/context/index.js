@@ -63,7 +63,7 @@ export function InterviewProvider(props) {
       const session = data && data.session;
       if (session) {
         setSession(session);
-        onStart && onStart();
+        onStart && onStart(data);
       } else {
         throw new Error("Interview session is null");
       }
