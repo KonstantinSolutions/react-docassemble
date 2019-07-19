@@ -91,7 +91,7 @@ export function InterviewProvider(props) {
     }
     setLoadingQuestion(true);
     let url = `${host}/api/session`;
-    url = replace("/docassemble", "/api/DocassembleApis");
+    url = url.replace("/docassemble", "/api/DocassembleApis");
     console.log(url, "url");
     return post(url, {
       session,
