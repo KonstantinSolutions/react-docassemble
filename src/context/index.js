@@ -90,10 +90,7 @@ export function InterviewProvider(props) {
       return;
     }
     setLoadingQuestion(true);
-    let url = `${host}/api/session`;
-    url = url.replace("/docassemble", "/api/DocassembleApis");
-    console.log(url, "url");
-    return post(url, {
+    return post(`${host}/api/session, {
       session,
       variables: filterVariablesByQuestion(question, variables)
     })
