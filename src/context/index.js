@@ -90,7 +90,7 @@ export function InterviewProvider(props) {
       return;
     }
     setLoadingQuestion(true);
-    return post(`${host}/api/session, {
+    return post(`${host}/api/session`, {
       session,
       variables: filterVariablesByQuestion(question, variables)
     })
