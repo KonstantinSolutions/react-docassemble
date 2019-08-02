@@ -1,7 +1,7 @@
 import { isEmail, isMobilePhone } from "validator";
 
 const defaultValidators = {
-  required: value => (!value ? "You need to fill this in." : null),
+  required: value => (value === "" || value === undefined) ? "You need to fill this in." : null),
   email: value => (value && !isEmail(value) ? "Not a valid email" : null),
   tel: value =>
     value && !isMobilePhone(value) ? "Not a valid phone number" : null
@@ -42,7 +42,6 @@ export function validate(question, variables) {
       field = { ...field, required: showIfCheck({ field, variables }) };
     }
     const validators = getValidators(field);
-    console.log(field.variable_name, validators, field);
     const fieldErrors = validators
       .map(validator => validator(value))
       .filter(error => Boolean(error));
