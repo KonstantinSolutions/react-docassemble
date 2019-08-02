@@ -1,7 +1,8 @@
 import { isEmail, isMobilePhone } from "validator";
 
 const defaultValidators = {
-  required: value => (value === "" || value === undefined) ? "You need to fill this in." : null),
+  required: value =>
+    value === "" || value === undefined ? "You need to fill this in." : null,
   email: value => (value && !isEmail(value) ? "Not a valid email" : null),
   tel: value =>
     value && !isMobilePhone(value) ? "Not a valid phone number" : null
