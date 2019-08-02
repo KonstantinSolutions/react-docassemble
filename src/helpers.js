@@ -42,6 +42,7 @@ export function validate(question, variables) {
       field = { ...field, required: showIfCheck({ field, variables }) };
     }
     const validators = getValidators(field);
+    console.log(field.variable_name, validators, field);
     const fieldErrors = validators
       .map(validator => validator(value))
       .filter(error => Boolean(error));
