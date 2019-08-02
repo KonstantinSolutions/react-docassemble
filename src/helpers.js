@@ -39,7 +39,7 @@ export function validate(question, variables) {
   const errors = question.fields.reduce((acc, field) => {
     const value = variables[field.variable_name];
     if (field.required) {
-      field.required = showIfCheck({ field, variables });
+      field = { ...field, required: showIfCheck({ field, variables }) };
     }
     const validators = getValidators(field);
     const fieldErrors = validators
