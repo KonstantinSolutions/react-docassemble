@@ -13,6 +13,7 @@ export function InterviewProvider(props) {
   const [errors, setErrors] = useState({});
   const [globalError, setGlobalError] = useState(null);
   const [loadingQuestion, setLoadingQuestion] = useState(false);
+  const [debug, setDebug] = useState(false);
   const host = (props.config && props.config.host) || "";
 
   function resetInterview() {
@@ -31,7 +32,7 @@ export function InterviewProvider(props) {
 
   function isValid() {
     const errors = validate(question, variables);
-
+    if (debug && errors) console.log('got errors = ', errors);
     setErrors(errors);
     if (Object.keys(errors).length > 0) {
       return false;
@@ -43,6 +44,7 @@ export function InterviewProvider(props) {
     setLoadingQuestion(true);
     return get(`${host}/api/session/question?&session=${session}`)
       .then(data => {
+        if (debug) console.log('setting question = ', data);
         setQuestion(data);
       })
       .finally(() => {
@@ -62,6 +64,7 @@ export function InterviewProvider(props) {
     return get(`${host}/api/session/new?${queryString}`).then(data => {
       const session = data && data.session;
       if (session) {
+        if (debug) console.log('Got session = ', session);
         setSession(session);
         onStart && onStart(data);
       } else {
@@ -81,12 +84,14 @@ export function InterviewProvider(props) {
 
   function goBack() {
     return post(`${host}/api/session/back`, { session }).then(data => {
+      if (debug) console.log('Going back = ', data);
       setQuestion(data);
     });
   }
 
   function saveVariables() {
     if (!isValid()) {
+      if (debug) console.log('Variables not valid.')
       return;
     }
     setLoadingQuestion(true);
@@ -95,6 +100,7 @@ export function InterviewProvider(props) {
       variables: filterVariablesByQuestion(question, variables)
     })
       .then(data => {
+        if (debug) console.log('Saved variables = ', data);
         setQuestion(data);
       })
       .finally(() => {
