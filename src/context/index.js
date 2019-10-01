@@ -16,7 +16,7 @@ export function InterviewProvider(props) {
   const [debug, setDebug] = useState(false);
   const host = (props.config && props.config.host) || "";
 
-  debugLog(...params) {
+  function debugLog(...params) {
     if (debug) console.log('[react-docassemble]', ...params);
   }
 
