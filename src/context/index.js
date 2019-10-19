@@ -11,6 +11,7 @@ export function InterviewProvider(props) {
   const [question, setQuestion] = useState();
   const [variables, setVariables] = useState({});
   const [errors, setErrors] = useState({});
+  const [defaultVars, setDefaultVars] = useState({});
   const [globalError, setGlobalError] = useState(null);
   const [loadingQuestion, setLoadingQuestion] = useState(false);
   const [debug, setDebug] = useState(false);
@@ -46,7 +47,8 @@ export function InterviewProvider(props) {
 
   function fetchQuestion() {
     setLoadingQuestion(true);
-    return get(`${host}/api/session/question?&session=${session}`)
+    const queryString = qs.stringify({ ...defaultVars, session });
+    return get(`${host}/api/session/question?${queryString}`)
       .then(data => {
         debugLog('setting question = ', data);
         setQuestion(data);
@@ -57,14 +59,15 @@ export function InterviewProvider(props) {
   }
 
   function fetchVariables({ session }) {
-    return get(`${host}/api/session?&session=${session}`).then(data => {
+    const queryString = qs.stringify({ ...defaultVars, session });
+    return get(`${host}/api/session?${queryString}`).then(data => {
       setVariables(data);
     });
   }
 
   function startInterview({ i, extraQueryParams, onStart }) {
     resetInterview();
-    const queryString = qs.stringify({ i, ...extraQueryParams });
+    const queryString = qs.stringify({ ...defaultVars, i, ...extraQueryParams });
     return get(`${host}/api/session/new?${queryString}`).then(data => {
       const session = data && data.session;
       if (session) {
@@ -87,7 +90,7 @@ export function InterviewProvider(props) {
   }
 
   function goBack() {
-    return post(`${host}/api/session/back`, { session }).then(data => {
+    return post(`${host}/api/session/back`, { ...defaultVars, session }).then(data => {
       debugLog('Going back = ', data);
       setQuestion(data);
     });
@@ -100,6 +103,7 @@ export function InterviewProvider(props) {
     }
     setLoadingQuestion(true);
     return post(`${host}/api/session`, {
+      ...defaultVars,
       session,
       variables: filterVariablesByQuestion(question, variables)
     })
