@@ -128,6 +128,7 @@ export function InterviewProvider(props) {
     variables,
     errors,
     globalError,
+    setDefaultVars,
     setSession,
     setQuestion,
     setVariable,
