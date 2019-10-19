@@ -86,7 +86,7 @@ export function InterviewProvider(props) {
       throw new Error("Need session id to continue interview");
     }
     setSession(session);
-    return fetchVariables({ session });
+    return fetchVariables({ ...defaultVars, session });
   }
 
   function goBack() {
