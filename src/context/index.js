@@ -102,6 +102,9 @@ export function InterviewProvider(props) {
       return;
     }
     let files = {}
+
+    debugLog({question, variables});
+
     let variables = filterVariablesByQuestion(question, variables);
 
     debugLog({variables});
