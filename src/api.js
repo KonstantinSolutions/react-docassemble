@@ -18,8 +18,9 @@ export function post(url, data) {
   const formData = new FormData();
 
   for( var x in data) {
+    console.log({x, data});
     let value;
-    if (data[x].toString === '[object Object]') value = JSON.stringify(data[x]);
+    if (data[x].toString() === '[object Object]') value = JSON.stringify(data[x]);
       else value = data[x];
 
     formData.append(x, value);
@@ -27,9 +28,9 @@ export function post(url, data) {
 
   return fetch(url, {
     method: 'POST',
-    // headers: {
-    //   'Content-Type': 'application/json'
-    // },
+    headers: {
+      'Content-Type': 'application/json'
+    },
     body: formData
   })
     .then(handleErrors)
