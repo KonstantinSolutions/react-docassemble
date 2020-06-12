@@ -116,6 +116,22 @@ export function InterviewProvider(props) {
       });
   }
 
+  function uploadFile(name, file) {
+    setLoadingQuestion(true);
+    return post(`${host}/api/session`, {
+      ...defaultVars,
+      session,
+      [name]: file
+    })
+    .then(data => {
+      debugLog('Saved file = ', data);
+      setQuestion(data);
+    })
+    .finally(() => {
+      setLoadingQuestion(false);
+    });
+  }
+
   useEffect(() => {
     if (session) {
       fetchQuestion().catch(e => setGlobalError("Fetching question failed"));
@@ -141,6 +157,7 @@ export function InterviewProvider(props) {
     resetInterview,
     goBack,
     saveVariables,
+    uploadFile,
     loadingQuestion,
     config: props.config
   };

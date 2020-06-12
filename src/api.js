@@ -18,7 +18,11 @@ export function post(url, data) {
   const formData = new FormData();
 
   for( var x in data) {
-    formData.append(x, data[x]);
+    let value;
+    if (data[x].toString === '[object Object]') value = JSON.stringify(data[x]);
+      else value = data[x];
+
+    formData.append(x, value);
   }
 
   return fetch(url, {
