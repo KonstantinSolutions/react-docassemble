@@ -122,7 +122,7 @@ export function InterviewProvider(props) {
     return post(`${host}/api/session`, {
       ...defaultVars,
       session,
-      vars,
+      variables: vars,
       ...files
     })
       .then(data => {
