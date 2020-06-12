@@ -101,11 +101,24 @@ export function InterviewProvider(props) {
       debugLog('Variables not valid.')
       return;
     }
+    let files = {}
+    let variables = filterVariablesByQuestion(question, variables);
+
+    for (var x in variables) {
+      if (variables[x].toString() === '[object Blob]') {
+        files[x] = variables[x];
+        delete variables[x];
+      }
+    }
+    
+    if (debugLog) console.log({variables, files});
+
     setLoadingQuestion(true);
     return post(`${host}/api/session`, {
       ...defaultVars,
       session,
-      variables: filterVariablesByQuestion(question, variables)
+      variables,
+      ...files
     })
       .then(data => {
         debugLog('Saved variables = ', data);
