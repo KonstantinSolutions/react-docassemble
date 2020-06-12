@@ -105,24 +105,24 @@ export function InterviewProvider(props) {
 
     debugLog({question, variables});
 
-    let variables = filterVariablesByQuestion(question, variables);
+    let vars = filterVariablesByQuestion(question, variables);
 
-    debugLog({variables});
+    debugLog({vars});
 
-    for (var x in variables) {
-      if (variables[x].toString() === '[object Blob]') {
-        files[x] = variables[x];
-        delete variables[x];
+    for (var x in vars) {
+      if (vars[x].toString() === '[object Blob]') {
+        files[x] = vars[x];
+        delete vars[x];
       }
     }
 
-    debugLog({variables, files});
+    debugLog({vars, files});
 
     setLoadingQuestion(true);
     return post(`${host}/api/session`, {
       ...defaultVars,
       session,
-      variables,
+      vars,
       ...files
     })
       .then(data => {
