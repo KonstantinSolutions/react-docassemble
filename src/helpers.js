@@ -55,6 +55,7 @@ export function validate(question, variables) {
 }
 
 export function filterVariablesByQuestion(question, variables) {
+  if (!variables) return [];
   const filteredVariables = question.fields.reduce((acc, field) => {
     acc[field.variable_name] = variables[field.variable_name];
     return acc;
