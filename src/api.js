@@ -14,12 +14,19 @@ export function get(url) {
 }
 
 export function post(url, data) {
+
+  const formData = new FormData();
+
+  for( var x in data) {
+    formData.append(x, data[x]);
+  }
+
   return fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
+    // headers: {
+    //   'Content-Type': 'application/json'
+    // },
+    body: formData
   })
     .then(handleErrors)
     .then(res => {
